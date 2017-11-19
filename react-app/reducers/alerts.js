@@ -1,5 +1,5 @@
 import {ADD_ALERT, REMOVE_ALERT} from "../constants/actionNames"
-import _ from "lodash"
+import _ from "underscore"
 
 export default function alerts(state = [], action) {
 

@@ -1,5 +1,5 @@
-const path = require('path');
-const webpack = require('webpack');
+var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   entry: [
@@ -7,7 +7,7 @@ module.exports = {
     "babel-polyfill"
   ],
   output: {
-    path: path.join(__dirname, 'public', 'js'),
+    path: path.join(__dirname, 'public/js'),
     filename: 'app.min.js',
     publicPath: '/'
   },
@@ -40,7 +40,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader?modules&camelCase'],
+        loaders: ['style', 'css'],
         include: path.join(__dirname, 'public/css')
       }
     ]

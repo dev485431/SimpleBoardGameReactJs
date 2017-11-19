@@ -1,0 +1,9 @@
+.dice {
+  border: 2px solid black;
+  padding: 10px;
+  background-color: lightgoldenrodyellow;
+  color: black;
+  width: 50px;
+  height: 45px;
+  text-align: center;
+}

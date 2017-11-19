@@ -1,5 +1,5 @@
-const path = require('path');
-const webpack = require('webpack');
+var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -30,27 +30,15 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(true),
   ],
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        loader: 'eslint',
-        include: path.join(__dirname, 'react-app')
-      }
-    ],
     loaders: [
       {
         test: /\.js?$/,
         loaders: ['babel'],
         include: path.join(__dirname, 'react-app')
-      },
-      {
-        test: /\.css$/,
-        loaders: ['style-loader', 'css-loader?modules&camelCase'],
-        include: path.join(__dirname, 'public/css')
       }]
   },
   eslint: {
     failOnWarning: false,
-    failOnError: true
+    failOnError: false
   }
 };
