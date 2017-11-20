@@ -61,7 +61,6 @@ class MainPage extends React.Component {
   }
 
   generateFieldsData() {
-    const {activeFieldIndex} = this.props.board;
     const isSpecialField = (fieldNumber) => _.contains(SPECIAL_FIELD_NUMBERS, fieldNumber);
     const getFieldNumber = (index) => index + 1;
     const getCaption = (fieldIndex) => {
@@ -76,8 +75,7 @@ class MainPage extends React.Component {
           index: i,
           number: fieldNumber,
           caption: getCaption(i),
-          isSpecial: isSpecialField(fieldNumber),
-          isActive: (i === activeFieldIndex),
+          isSpecial: isSpecialField(fieldNumber)
         }
       );
     }
