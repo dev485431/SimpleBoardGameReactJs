@@ -5,9 +5,6 @@ export default class Alerts extends React.Component {
 
   constructor(props) {
     super(props);
-    _.bindAll(this,
-      'removeAlert'
-    );
   }
 
   removeAlert(alert) {

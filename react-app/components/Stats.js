@@ -10,8 +10,8 @@ export default class Stats extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {diceThrowCount, averageResult} = this;
-    const winFlag = nextProps.gameState === GAME_STATE_WON;
     if ((this.props.gameState !== nextProps.gameState) && nextProps.shouldSaveStats) {
+      const winFlag = nextProps.gameState === GAME_STATE_WON;
       this.props.saveStats({
         winFlag,
         diceThrowCount,
