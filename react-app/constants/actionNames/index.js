@@ -9,3 +9,7 @@ export const SET_GAME_STATE = "SET_GAME_STATE";
 
 // dice actions
 export const SET_NEW_DICE_RESULT = "SET_NEW_DICE_RESULT";
+
+// stats actions
+export const ADD_DICE_RESULT_TO_STATS = "ADD_DICE_RESULT_TO_STATS";
+export const RESET_STATS = "RESET_STATS";

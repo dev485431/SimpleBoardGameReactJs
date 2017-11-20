@@ -8,12 +8,15 @@ import Stats from "../components/Stats"
 import {addAlert, removeAlert} from "../actions/alerts"
 import {setFields, setActiveFieldByNumber, moveForward, setGameState} from "../actions/board"
 import {setNewDiceResult} from "../actions/dice"
+import {addDiceResultToStats, resetStats, saveStats} from "../actions/stats"
 import {
   NUMBER_OF_FIELDS,
   SPECIAL_FIELD_NUMBERS,
   GAME_STATE_WON,
   GAME_STATE_LOST,
-  GAME_STATE_OPEN
+  GAME_STATE_OPEN,
+  MSG_GAME_WON,
+  MSG_GAME_LOST
 } from "../constants/const"
 
 
@@ -34,6 +37,7 @@ class MainPage extends React.Component {
   }
 
   initializeGameBoard() {
+    this.props.resetStats();
     this.props.setFields(this.generateFieldsData());
     this.props.setActiveFieldByNumber(1);
     this.props.setGameState(GAME_STATE_OPEN);
@@ -42,14 +46,14 @@ class MainPage extends React.Component {
   getSpecialFieldAction(fieldNumber) {
     const specialActions = {
       12: () => {
-        this.props.addAlert('YOU LOOSE!');
+        this.props.addAlert(MSG_GAME_LOST);
         this.props.setGameState(GAME_STATE_LOST);
       },
       19: () => {
         this.props.setActiveFieldByNumber(11);
       },
       20: () => {
-        this.props.addAlert('YOU WIN!');
+        this.props.addAlert(MSG_GAME_WON);
         this.props.setGameState(GAME_STATE_WON);
       }
     };
@@ -95,29 +99,36 @@ class MainPage extends React.Component {
   }
 
   render() {
-    const {alerts, removeAlert, dice, onDiceThrow, board} = this.props;
-
+    const {alerts, removeAlert, dice, onDiceThrow, board, stats, saveStats} = this.props;
+    const isGameFinished = board.gameState === GAME_STATE_WON || board.gameState === GAME_STATE_LOST;
     return (
       <div>
-        <Alerts alerts={alerts} clearAlert={removeAlert}/>
         <div className="row">
+          <h1><strong>Simple Board Game</strong> - ReactJs</h1><br /><br />
           <div className="col-md-6">
             {this.getFields()}
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-md-6">
+          </div>
+          <div className="col-md-4">
+            <div className="row">
+              <Alerts alerts={alerts} clearAlert={removeAlert}/>
+            </div>
+            <div className="row">
+              <div className="col-md-5">
                 <Dice currentResult={dice.currentResult}
                       onDiceThrow={onDiceThrow}
                       onTryAgain={this.initializeGameBoard}
                       gameState={board.gameState}/>
-                </div>
-                <div className="col-md-6">
-                  <Stats diceThrowCount={} diceThrowResults={} isVisible={}/>
-                </div>
+              </div>
+              <div className="col-md-7">
+                <Stats diceThrowResults={stats.diceThrowResults}
+                       gameState={board.gameState}
+                       isVisible={isGameFinished}
+                       shouldSaveStats={isGameFinished}
+                       saveStats={saveStats}
+                />
               </div>
             </div>
           </div>
-
         </div>
       </div>
     )
@@ -128,7 +139,8 @@ export default connect(state => {
     return {
       alerts: state.alerts,
       board: state.board,
-      dice: state.dice
+      dice: state.dice,
+      stats: state.stats
     }
   },
 
@@ -152,6 +164,13 @@ export default connect(state => {
       onDiceThrow: (newResult) => {
         dispatch(setNewDiceResult(newResult));
         dispatch(moveForward(newResult));
+        dispatch(addDiceResultToStats(newResult));
+      },
+      resetStats: () => {
+        dispatch(resetStats());
+      },
+      saveStats: (stats) => {
+        saveStats(stats)
       }
     }
   })(MainPage);
@@ -160,10 +179,13 @@ MainPage.propTypes = {
   alerts: React.PropTypes.arrayOf(React.PropTypes.string),
   board: React.PropTypes.object.isRequired,
   dice: React.PropTypes.object.isRequired,
+  stats: React.PropTypes.object.isRequired,
   addAlert: React.PropTypes.func.isRequired,
   removeAlert: React.PropTypes.func.isRequired,
   setFields: React.PropTypes.func.isRequired,
   setGameState: React.PropTypes.func.isRequired,
   setActiveFieldByNumber: React.PropTypes.func.isRequired,
-  onDiceThrow: React.PropTypes.func.isRequired
+  onDiceThrow: React.PropTypes.func.isRequired,
+  resetStats: React.PropTypes.func.isRequired,
+  saveStats: React.PropTypes.func.isRequired
 };

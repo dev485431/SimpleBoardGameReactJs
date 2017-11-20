@@ -30,9 +30,9 @@ export default class Dice extends React.Component {
         <div className="dice">
           {currentResult}
         </div><br />
-        <div className="btn-group">
+        <div className="btn-group-vertical">
           <button type="button" disabled={throwDiceBtnDisabled} className="btn btn-sm btn-primary" onClick={this.onDiceThrowClick}>Throw the dice</button>
-          &nbsp; {tryAgainButton}
+          {tryAgainButton}
         </div>
       </div>
     );

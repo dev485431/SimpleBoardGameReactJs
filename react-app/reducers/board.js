@@ -5,10 +5,11 @@ import {
   MOVE_FORWARD,
   SET_GAME_STATE
 } from "../constants/actionNames"
+import {GAME_STATE_OPEN} from "../constants/const"
 
 const defaultState = {
   activeFieldIndex: 0,
-  gameState: '',
+  gameState: GAME_STATE_OPEN,
   fields: []
 };
 

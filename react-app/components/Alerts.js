@@ -13,7 +13,7 @@ export default class Alerts extends React.Component {
   removeAlert(alert) {
     setTimeout(() => {
       this.props.clearAlert(alert)
-    }, 2000);
+    }, 1500);
   }
 
   render() {
