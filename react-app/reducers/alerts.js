@@ -1,4 +1,4 @@
-import {ADD_ALERT, REMOVE_ALERT} from "../constants/actionNames"
+import {ADD_ALERT, REMOVE_ALERT, CLEAR_ALERTS} from "../constants/actionNames"
 import _ from "underscore"
 
 export default function alerts(state = [], action) {
@@ -8,6 +8,8 @@ export default function alerts(state = [], action) {
       return [action.alert, ...state];
     case REMOVE_ALERT:
       return _.filter(state, el => el !== action.alert);
+    case CLEAR_ALERTS:
+      return [];
     default:
       return state
   }

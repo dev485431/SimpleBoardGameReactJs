@@ -17,16 +17,16 @@ export function resetStats() {
   };
 }
 
-export function saveStats({wasSuccessful, diceThrowCount, averageResult}) {
+export function saveStats({winFlag, diceThrowCount, averageResult}) {
   axios.post("/stats", {
-    wasSuccessful,
+    winFlag,
     diceThrowCount,
     averageResult,
   })
     .then(function (data) {
-      let stats = {
+      const stats = {
         id: data.data.id,
-        wasSuccessful: data.data.wasSuccessful,
+        winFlag: data.data.winFlag,
         diceThrowCount: data.data.diceThrowCount,
         averageResult: data.data.averageResult,
       };

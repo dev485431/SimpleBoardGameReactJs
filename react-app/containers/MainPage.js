@@ -5,7 +5,7 @@ import Alerts from "../components/Alerts"
 import Field from "../components/Field"
 import Dice from "../components/Dice"
 import Stats from "../components/Stats"
-import {addAlert, removeAlert} from "../actions/alerts"
+import {addAlert, removeAlert, clearAlerts} from "../actions/alerts"
 import {setFields, setActiveFieldByNumber, moveForward, setGameState} from "../actions/board"
 import {setNewDiceResult} from "../actions/dice"
 import {addDiceResultToStats, resetStats, saveStats} from "../actions/stats"
@@ -99,7 +99,7 @@ class MainPage extends React.Component {
   }
 
   render() {
-    const {alerts, removeAlert, dice, onDiceThrow, board, stats, saveStats} = this.props;
+    const {alerts, removeAlert, clearAlerts, dice, onDiceThrow, board, stats, saveStats} = this.props;
     const isGameFinished = board.gameState === GAME_STATE_WON || board.gameState === GAME_STATE_LOST;
     return (
       <div>
@@ -114,7 +114,9 @@ class MainPage extends React.Component {
                 <Dice currentResult={dice.currentResult}
                       onDiceThrow={onDiceThrow}
                       onTryAgain={this.initializeGameBoard}
-                      gameState={board.gameState}/>
+                      gameState={board.gameState}
+                      clearAlerts={clearAlerts}
+                />
               </div>
               <div className="col-md-7">
                 <Stats diceThrowResults={stats.diceThrowResults}
@@ -152,6 +154,9 @@ export default connect(state => {
       removeAlert: (alert) => {
         dispatch(removeAlert(alert))
       },
+      clearAlerts: () => {
+        dispatch(clearAlerts())
+      },
       setFields: (fields) => {
         dispatch(setFields(fields))
       },
@@ -182,6 +187,7 @@ MainPage.propTypes = {
   stats: React.PropTypes.object.isRequired,
   addAlert: React.PropTypes.func.isRequired,
   removeAlert: React.PropTypes.func.isRequired,
+  clearAlerts: React.PropTypes.func.isRequired,
   setFields: React.PropTypes.func.isRequired,
   setGameState: React.PropTypes.func.isRequired,
   setActiveFieldByNumber: React.PropTypes.func.isRequired,

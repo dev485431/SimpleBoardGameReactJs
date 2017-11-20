@@ -18,7 +18,7 @@ module.exports = (app, dir) => {
   app.post(STATS_PATH, (req, res) => {
     res.json({
       id: Math.floor(Math.random() * (10000)) + 1,
-      wasSuccessful: req.body.wasSuccessful,
+      winFlag: req.body.winFlag,
       diceThrowCount: req.body.diceThrowCount,
       averageResult: req.body.averageResult
     });

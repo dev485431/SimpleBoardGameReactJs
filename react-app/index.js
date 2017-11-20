@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
 
   // if not prod environment, use hot loader
-  let AppContainer = require("react-hot-loader").AppContainer;
+  const AppContainer = require("react-hot-loader").AppContainer;
   ReactDOM.render(<AppContainer><App/></AppContainer>, rootEl);
 
   if (module.hot) {

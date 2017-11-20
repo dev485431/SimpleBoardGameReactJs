@@ -5,9 +5,9 @@ export default class Alerts extends React.Component {
 
   constructor(props) {
     super(props);
-    _.bindAll(this, [
+    _.bindAll(this,
       'removeAlert'
-    ]);
+    );
   }
 
   removeAlert(alert) {
@@ -17,7 +17,7 @@ export default class Alerts extends React.Component {
   }
 
   render() {
-    let alerts = this.props.alerts.map((el, key) => {
+    const alerts = this.props.alerts.map((el, key) => {
       this.removeAlert(el);
       return (
         <div key={key}><strong>{el}</strong></div>
@@ -28,7 +28,7 @@ export default class Alerts extends React.Component {
         <div className="alert alert-info" role="alert">
           {alerts}
         </div>
-      ): null
+      ) : null
     )
   }
 }

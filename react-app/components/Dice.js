@@ -9,9 +9,10 @@ export default class Dice extends React.Component {
 
   constructor(props) {
     super(props);
-    _.bindAll(this, [
-      'onDiceThrowClick'
-    ]);
+    _.bindAll(this,
+      'onDiceThrowClick',
+      'onTryAgain'
+    );
   }
 
   onDiceThrowClick() {
@@ -19,10 +20,15 @@ export default class Dice extends React.Component {
     this.props.onDiceThrow(newResult);
   }
 
+  onTryAgain() {
+    this.props.clearAlerts();
+    this.props.onTryAgain();
+  }
+
   render() {
-    const {currentResult, gameState, onTryAgain} = this.props;
+    const {currentResult, gameState} = this.props;
     const tryAgainButton = gameState === GAME_STATE_WON || gameState === GAME_STATE_LOST ? (
-      <button type="button" className="btn btn-sm btn-default" onClick={onTryAgain}>Try again</button>
+      <button type="button" className="btn btn-sm btn-default" onClick={this.onTryAgain}>Try again</button>
     ) : null;
     const throwDiceBtnDisabled = gameState === GAME_STATE_WON || gameState === GAME_STATE_LOST;
     return (
@@ -43,12 +49,14 @@ Dice.defaultProps = {
   currentResult: 1,
   onDiceThrow: _.noop,
   onTryAgain: _.noop,
-  gameState: ''
+  gameState: '',
+  clearAlerts: _.noop
 };
 
 Dice.propTypes = {
   currentResult: React.PropTypes.number.isRequired,
   onDiceThrow: React.PropTypes.func.isRequired,
   onTryAgain: React.PropTypes.func.isRequired,
-  gameState: React.PropTypes.string.isRequired
+  gameState: React.PropTypes.string.isRequired,
+  clearAlerts: React.PropTypes.func.isRequired
 };
