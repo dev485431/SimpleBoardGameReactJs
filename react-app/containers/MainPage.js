@@ -110,9 +110,6 @@ class MainPage extends React.Component {
           </div>
           <div className="col-md-4">
             <div className="row">
-              <Alerts alerts={alerts} clearAlert={removeAlert}/>
-            </div>
-            <div className="row">
               <div className="col-md-5">
                 <Dice currentResult={dice.currentResult}
                       onDiceThrow={onDiceThrow}
@@ -127,6 +124,9 @@ class MainPage extends React.Component {
                        saveStats={saveStats}
                 />
               </div>
+            </div><br /><br />
+            <div className="row">
+              <Alerts alerts={alerts} clearAlert={removeAlert}/>
             </div>
           </div>
         </div>

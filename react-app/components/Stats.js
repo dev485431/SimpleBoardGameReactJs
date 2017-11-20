@@ -22,11 +22,13 @@ export default class Stats extends React.Component {
 
   render() {
     const {isVisible, gameState, diceThrowResults} = this.props;
+    const resultsSum = _.reduce(diceThrowResults, (memo, result) => memo + result, 0);
     this.diceThrowCount = diceThrowResults.length || 1;
-    this.averageResult = (_.reduce(diceThrowResults, (memo, result) => memo + result, 0) / this.diceThrowCount).toFixed(3);
+    this.averageResult = (resultsSum / this.diceThrowCount).toFixed(2);
     return (
       isVisible ? (
         <div>
+          <h4>Game stats:</h4>
           <strong>Game state:</strong> {gameState} <br/>
           <strong>Number of dice throws:</strong> {this.diceThrowCount} <br/>
           <strong>Average result:</strong> {this.averageResult}
